@@ -4,7 +4,8 @@
 	<link rel="stylesheet" type="text/css" href="simon.css">
 </head>
 <body>
-	<h1>Simple Simon</h1>
+	<h1>Hard Simple Simon</h1>
+	<h4>(Only the latest square added to the game will be shown)</h4>
 	<div id="squareBody">
 		<div class="square" id="square0" value="0"></div>
 		<div class="square" id="square1" value="1"></div>
@@ -22,15 +23,13 @@
 	var square2 = $("#square2");
 	var square3 = $("#square3");
 	var squaresArray = [square0, square1, square2, square3];
+	var randomBox;
 	var randomArray = [];
 	var userArray = [];
-	var randomBox;
 	var i = 0;
 
 	//On click listener runs when start game button is pressed
 	$("#startGame").click(function () {
-		randomArray = [];
-		userArray = [];
 		$("#startGame").text("Restart the game");
 
 		//Function that grabs a box randomly
@@ -54,43 +53,39 @@
 				}
 			});
 		}
-		// var interval = setInterval(animateSquare,1500);
 
 		//Animates the square selected
 		function animateSquare () {	
-				$(squaresArray[randomArray[i]]).fadeTo(700, 1);
-				$(squaresArray[randomArray[i]]).fadeTo(700, .5);
+			$(squaresArray[randomArray[i]]).fadeTo(700, 1);
+			$(squaresArray[randomArray[i]]).fadeTo(700, .5);
 			timerFunction();
-				
-		
 		}
 
+		//This timer function currently is incrementing i
 		function timerFunction () {
 			var timeout = setTimeout(function () { 
 				i++; 
 				console.log(i);
 			}, 1000);
-			if(i >= randomArray.length) {
+			if(i == randomArray.length) {
 				i = 0;
  				clearTimeout(timeout);
-				animateSquare(); 
 			} 
-				
-		
-
 		}
 
 		//Compares randomArray and userArray, if they're the same you continue with randomize function
 		function compareArrays () {
+			var rounds
 			if (userArray.toString() == randomArray.toString()) {
 				randomize();
 				userArray = [];
 			}
 			else {
 				alert("Game over");
+				randomArray = [];
+				userArray = [];
 			}
 		}
-				
 		randomize();
 		userInput();
 
