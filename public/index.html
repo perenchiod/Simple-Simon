@@ -25,6 +25,7 @@
 	var randomArray = [];
 	var userArray = [];
 	var randomBox;
+	var i = 0;
 
 	//On click listener runs when start game button is pressed
 	$("#startGame").click(function () {
@@ -48,60 +49,68 @@
 			$(".square").on("click", function(event) {
 				userArray.push((this).getAttribute("value"));
 				console.log(userArray);
-				compareArrays();
+				if (userArray.length == randomArray.length) {
+					compareArrays();
+				}
 			});
 		}
+		// var interval = setInterval(animateSquare,1500);
 
 		//Animates the square selected
-		function animateSquare () {
-			setTimeout(function () {	
-					var timer = setInterval(function () {
-						for(var i = 0; i < randomArray.length; i++) {
-								$(squaresArray[randomArray[i]]).css("opacity" , "1");
-								$(squaresArray[randomArray[i]]).fadeTo(1000, .4);
-								clearTimeout(timer)
-							}
-					}, 1500);
-			}, 2000);
+		function animateSquare () {	
+				$(squaresArray[randomArray[i]]).fadeTo(700, 1);
+				$(squaresArray[randomArray[i]]).fadeTo(700, .5);
+			timerFunction();
+				
+		
 		}
 
-		// function waitItOut () {
-		// 	setInterval(function () {
+		function timerFunction () {
+			var timeout = setTimeout(function () { 
+				i++; 
+				console.log(i);
+			}, 1000);
+			if(i >= randomArray.length) {
+				i = 0;
+ 				clearTimeout(timeout);
+				animateSquare(); 
+			} 
+				
+		
 
-		// 	}, 2000); 
-		// }
+		}
 
+		//Compares randomArray and userArray, if they're the same you continue with randomize function
 		function compareArrays () {
 			if (userArray.toString() == randomArray.toString()) {
 				randomize();
+				userArray = [];
 			}
 			else {
 				alert("Game over");
 			}
 		}
 				
-
 		randomize();
 		userInput();
-		// animateBox();
 
 	});
 
 	square0.click(function() {
 		$(this).css("opacity" , "1");
-		$(this).fadeTo(1000, .5);
+		$(this).fadeTo(500, .5);
 	});
 	square1.click(function() {
 		$(this).css("opacity" , "1");
-		$(this).fadeTo(1000, .5);
+		$(this).fadeTo(500, .5);
 	});
 	square2.click(function() {
 		$(this).css("opacity" , "1");
-		$(this).fadeTo(1000, .5);
+		$(this).fadeTo(500, .5);
 	});
 	square3.click(function() {
 		$(this).css("opacity" , "1");
-		$(this).fadeTo(1000, .5);
+		$(this).fadeTo(500, .5);
 	});
 </script>
 </body>
